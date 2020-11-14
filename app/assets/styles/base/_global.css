@@ -15,3 +15,13 @@ img {
 a {
   color: $mainOrange;
 }
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
