@@ -10,6 +10,7 @@ new ReaveaOnScroll(document.querySelectorAll(".feature-item"), 75);
 new ReaveaOnScroll(document.querySelectorAll(".testimonial"), 60);
 let modal;
 
+
 document.querySelectorAll('.open-modal').forEach(el => {
   el.addEventListener("click", e => {
     e.preventDefault()
