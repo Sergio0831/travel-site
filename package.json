@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Sergio0831/travel-site#readme",
   "dependencies": {
+    "lazysizes": "^5.2.2",
     "lodash": "^4.17.20",
     "normalize.css": "^8.0.1"
   },
