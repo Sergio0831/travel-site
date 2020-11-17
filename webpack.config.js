@@ -3,6 +3,7 @@ const path = require('path')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const fse = require('fs-extra')
 
 const postCSSPlugins = [
@@ -73,7 +74,23 @@ if (currentTask == "build") {
         presets: ['@babel/preset-env']
       }
     }
-  })
+  },
+  {
+    test: /\.(jpe?g|png|gif|svg)$/i,
+    use: [
+      {
+        loader: 'file-loader',
+        options: {
+          name: '[name].[hash:6].[ext]',
+          outputPath: 'images',
+          publicPath: 'images',
+          emitFile: true,
+          esModule: true
+        }
+      }
+    ]
+  }
+  )
 
   cssConfig.use.unshift(MiniCssExtractPlugin.loader)
   postCSSPlugins.push(require('cssnano'))
@@ -89,7 +106,26 @@ if (currentTask == "build") {
       config.plugins.push(
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({filename: 'styles.[chunkhash].css'}),
-        new RunAfterCompile()
+        new RunAfterCompile(),
+        new ImageMinimizerPlugin({
+          minimizerOptions: {
+            plugins: [
+              ['gifsicle', { interlaced: true }],
+              ['jpegtran', { quality: 50, progressive: true }],
+              ['optipng', { optimizationLevel: 5 }],
+              [
+                'svgo',
+                {
+                  plugins: [
+                    {
+                      removeViewBox: false,
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        })
       )
 }
 
