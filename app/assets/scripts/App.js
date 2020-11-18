@@ -3,7 +3,9 @@ import 'lazysizes'
 import MobileMenu from './modules/MobileMenu'
 import ReaveaOnScroll from './modules/RevealOnScroll'
 import StickyHeader from './modules/StickyHeader'
+import ClientArea from './modules/ClientArea'
 
+new ClientArea();
 let stickyHeader = new StickyHeader();
 let mobileMenu =  new MobileMenu();
 new ReaveaOnScroll(document.querySelectorAll(".feature-item"), 75);
